@@ -32,7 +32,7 @@
         android:layout_marginTop="15dp"
         android:onClick="setDate"
         android:clickable="true"
-        android:textColor="#FF000000"/>
+        android:textColor="#FFFFFFFF"/>
 
     <TextView
         android:layout_width="wrap_content"
