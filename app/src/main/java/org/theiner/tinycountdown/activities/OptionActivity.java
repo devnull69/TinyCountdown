@@ -153,7 +153,7 @@ public class OptionActivity extends Activity {
 
             DatePickerDialog dpd = new DatePickerDialog(getActivity(),this,year,month,day);
 
-            dpd.setTitle("Name des Termins");
+            dpd.setTitle("Datum des Termins");
 
             return dpd;
         }
