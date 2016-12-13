@@ -2,6 +2,8 @@ package org.theiner.tinycountdown.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,10 +22,11 @@ import java.util.Calendar;
 public class OverviewActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "TinyCountdownFile";
 
+    private TextView txtTage = null;
+
     private void zeigeWerte() throws ParseException {
 
         TextView txtTerminName = (TextView) findViewById(R.id.txtTerminName);
-        TextView txtTage = (TextView) findViewById(R.id.txtTage);
 
         Calendar heute = Calendar.getInstance();
 
@@ -59,6 +62,11 @@ public class OverviewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        txtTage = (TextView) findViewById(R.id.txtTage);
+        AssetManager myassets = this.getAssets();
+        Typeface tf = Typeface.createFromAsset(myassets, "fonts/DSEG7Classic-Bold.ttf" );
+        txtTage.setTypeface(tf);
 
         try {
             SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);

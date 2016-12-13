@@ -34,17 +34,17 @@
         android:gravity="center"
         android:text="1234"
         android:id="@+id/txtTage"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="105dp"
         android:textSize="70dp"
         android:textIsSelectable="true"
-        android:textColor="#de283d" />
+        android:textColor="#de283d"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Tagen"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="195dp"
         android:textSize="29dp" />
 
 </RelativeLayout>
