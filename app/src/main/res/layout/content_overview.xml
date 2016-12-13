@@ -37,7 +37,7 @@
         android:layout_marginTop="70dp"
         android:textSize="70dp"
         android:textIsSelectable="true"
-        android:textColor="#00bb00" />
+        android:textColor="#de283d" />
 
     <TextView
         android:layout_width="match_parent"
