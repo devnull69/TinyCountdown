@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TinyCountdown</string>
+    <string name="action_settings">Optionen</string>
+    <string name="action_close">App beenden</string>
+</resources>

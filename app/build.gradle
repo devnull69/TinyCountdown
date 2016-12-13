@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    String propertyName = "AndroidKeystore.properties"
+    Properties props = new Properties()
+    if(project.hasProperty(propertyName)
+            && new File(project.property(propertyName)).exists()) {
+
+        props.load(new FileInputStream(file(project.property(propertyName))))
+    }
+
+    signingConfigs {
+        standardselfsigned {
+            keyAlias props['keyAlias']
+            keyPassword props['keyPassword']
+            storeFile file(props['storeFile'])
+            storePassword props['storePassword']
+        }
+    }
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "org.theiner.tinycountdown"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 1
+        versionName "0.1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.standardselfsigned
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'joda-time:joda-time:2.8.2' // for joda
+}
