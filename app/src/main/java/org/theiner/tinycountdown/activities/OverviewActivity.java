@@ -3,18 +3,25 @@ package org.theiner.tinycountdown.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.theiner.tinycountdown.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -122,7 +129,40 @@ public class OverviewActivity extends AppCompatActivity {
             System.exit(0);
         }
 
+        if(id == R.id.action_share) {
+            takeScreenshot();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void takeScreenshot() {
+        // get RelativeLayout view and shoot it
+
+        RelativeLayout rlScreen = (RelativeLayout) findViewById(R.id.rlScreen);
+
+        Bitmap bitmap = Bitmap.createBitmap(rlScreen.getWidth(),
+                rlScreen.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        rlScreen.draw(canvas);
+
+        try {
+            File file = new File(this.getCacheDir(), "screenshot.jpg");
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            shareIntent.setType("image/jpeg");
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            startActivity(Intent.createChooser(shareIntent, "Screenshot teilen"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

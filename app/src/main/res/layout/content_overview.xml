@@ -12,6 +12,14 @@
     tools:context=".activities.OverviewActivity"
     tools:showIn="@layout/activity_overview">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/rlScreen">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,6 +53,9 @@
         android:gravity="center"
         android:text="Tagen"
         android:layout_marginTop="195dp"
-        android:textSize="29dp" />
+        android:textSize="29dp"
+        android:id="@+id/textView" />
+    </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

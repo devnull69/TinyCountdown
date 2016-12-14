@@ -9,6 +9,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_share"
+        android:orderInCategory="150"
+        android:title="Teilen"
+        app:showAsAction="always"
+        android:icon="@drawable/share" />
+
+    <item
         android:id="@+id/action_close"
         android:orderInCategory="200"
         android:title="@string/action_close"
