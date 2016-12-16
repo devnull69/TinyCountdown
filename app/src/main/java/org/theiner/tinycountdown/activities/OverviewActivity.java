@@ -31,15 +31,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static org.theiner.tinycountdown.R.id.ivBackgroundImage;
+
 public class OverviewActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "TinyCountdownFile";
 
     private TextView txtTage = null;
+    private ImageView ivBackgroundImage = null;
+
+    private boolean firstStart = true;
 
     private void zeigeWerte() throws ParseException {
 
         TextView txtTerminName = (TextView) findViewById(R.id.txtTerminName);
-        ImageView ivBackgroundImage = (ImageView) findViewById(R.id.ivBackgroundImage);
+        ivBackgroundImage = (ImageView) findViewById(R.id.ivBackgroundImage);
 
         Calendar heute = Calendar.getInstance();
 
@@ -95,6 +100,7 @@ public class OverviewActivity extends AppCompatActivity {
     private void zeigeOptionen() {
         Intent intent = new Intent(this, OptionActivity.class);
         startActivity(intent);
+        firstStart = false;
     }
 
     @Override
@@ -128,10 +134,18 @@ public class OverviewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        try {
-            zeigeWerte();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(!firstStart) {
+            // Gibt es schon ein gecachetes Hintergrundbild?
+            File sdDir = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File fileDir = new File(sdDir, "TinyCountdownCache");
+
+            String imageFilename = fileDir.getPath() + File.separator + "background.png";
+            File imageFile = new File(imageFilename);
+            if(imageFile.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                ivBackgroundImage.setImageBitmap(myBitmap);
+            }
         }
     }
 
