@@ -76,31 +76,33 @@ public class OverviewActivity extends AppCompatActivity {
             Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
             ivBackgroundImage.setImageBitmap(myBitmap);
         } else {
-            // Nachricht anzeigen und evtl. in die Optionen wechseln
-            new AlertDialog.Builder(this)
-                    .setTitle("Hintergrundbild")
-                    .setMessage("Du hast noch kein Hintergrundbild festgelegt. Möchtest Du das jetzt tun?")
-                    .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            zeigeOptionen();
-                            dialog.cancel();
-                        }
-                    })
-                    .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
+            // Nachricht anzeigen und evtl. in die Optionen wechseln, nur beim Erststart
+            if(firstStart) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Hintergrundbild")
+                        .setMessage("Du hast noch kein Hintergrundbild festgelegt. Möchtest Du das jetzt tun?")
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                firstStart = false;
+                                zeigeOptionen();
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
 
-                    .show();
-
+                        .show();
+            }
         }
+        firstStart = false;
     }
 
     private void zeigeOptionen() {
         Intent intent = new Intent(this, OptionActivity.class);
         startActivity(intent);
-        firstStart = false;
     }
 
     @Override
@@ -124,6 +126,7 @@ public class OverviewActivity extends AppCompatActivity {
             if(strStartDatum != null) {
                 zeigeWerte();
             } else {
+                firstStart = false;
                 zeigeOptionen();
             }
         } catch (ParseException e) {
@@ -135,16 +138,10 @@ public class OverviewActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!firstStart) {
-            // Gibt es schon ein gecachetes Hintergrundbild?
-            File sdDir = Environment
-                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File fileDir = new File(sdDir, "TinyCountdownCache");
-
-            String imageFilename = fileDir.getPath() + File.separator + "background.png";
-            File imageFile = new File(imageFilename);
-            if(imageFile.exists()) {
-                Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-                ivBackgroundImage.setImageBitmap(myBitmap);
+            try {
+                zeigeWerte();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

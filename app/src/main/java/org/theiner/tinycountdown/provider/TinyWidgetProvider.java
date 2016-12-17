@@ -48,12 +48,18 @@ public class TinyWidgetProvider extends AppWidgetProvider {
                 Calendar terminDatum = Calendar.getInstance();
 
                 SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-                String strStartDatum = settings.getString("terminDatum", "01.08.2017");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-                terminDatum.setTime(sdf.parse(strStartDatum));
+                String strStartDatum = settings.getString("terminDatum", "");
 
                 LocalDate heuteDate = LocalDate.fromCalendarFields(heute);
-                LocalDate terminDate = LocalDate.fromCalendarFields(terminDatum);
+                LocalDate terminDate = null;
+                if(strStartDatum.equals("")) {
+                    terminDate = heuteDate;
+                } else {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+                    terminDatum.setTime(sdf.parse(strStartDatum));
+                    terminDate = LocalDate.fromCalendarFields(terminDatum);
+                }
+
                 long days = Days.daysBetween(heuteDate, terminDate).getDays();
 
                 // Text setzen

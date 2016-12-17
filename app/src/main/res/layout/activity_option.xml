@@ -45,7 +45,7 @@
         android:ems="10"
         android:id="@+id/editTerminName"
         android:textSize="16dp"
-        android:layout_below="@+id/lblTerminName"/>
+        android:layout_below="@+id/lblTerminName" />
 
     <TextView
         android:layout_width="wrap_content"
