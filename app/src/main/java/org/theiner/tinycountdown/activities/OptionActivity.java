@@ -42,6 +42,8 @@ public class OptionActivity extends Activity {
 
     private ImageView ivBackgroundImage = null;
 
+    private Bitmap selectedImage = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -123,14 +125,29 @@ public class OptionActivity extends Activity {
             editor.putString("terminDatum", sdf.format(startDatum));
             editor.putString("terminName", terminName);
             editor.commit();
+
+            // Gewähltes Bild im Cache speichern
+            if(selectedImage != null) {
+                File sdDir = Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                File fileDir = new File(sdDir, "TinyCountdownCache");
+                fileDir.mkdirs();
+
+                String imageFilename = fileDir.getPath() + File.separator + "background.png";
+                File newFile = new File(imageFilename);
+
+                FileOutputStream out = new FileOutputStream(newFile);
+                selectedImage.compress(Bitmap.CompressFormat.PNG, 100, out);
+                out.flush();
+                out.close();
+            }
+
             this.finish();
         } catch (ParseException e) {
             Toast toast = Toast.makeText(getApplicationContext(), "Ungültiges Datum!", Toast.LENGTH_SHORT);
             toast.show();
             e.printStackTrace();
-        } catch(NumberFormatException e) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Falsches Zahlenformat!", Toast.LENGTH_SHORT);
-            toast.show();
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
@@ -181,22 +198,9 @@ public class OptionActivity extends Activity {
                     try {
                         final Uri imageUri = imageReturnedIntent.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        selectedImage = BitmapFactory.decodeStream(imageStream);
                         ivBackgroundImage.setImageBitmap(selectedImage);
 
-                        // Im Cache speichern
-                        File sdDir = Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                        File fileDir = new File(sdDir, "TinyCountdownCache");
-                        fileDir.mkdirs();
-
-                        String imageFilename = fileDir.getPath() + File.separator + "background.png";
-                        File newFile = new File(imageFilename);
-
-                        FileOutputStream out = new FileOutputStream(newFile);
-                        selectedImage.compress(Bitmap.CompressFormat.PNG, 100, out);
-                        out.flush();
-                        out.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
