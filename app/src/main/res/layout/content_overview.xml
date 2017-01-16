@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="ist in"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/lblIsIn"
         android:layout_below="@id/txtTerminName" />
 
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:text="1234"
         android:id="@+id/txtTage"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="23dp"
         android:textSize="70dp"
         android:textIsSelectable="true"
         android:textColor="#de283d"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Tagen"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="13dp"
         android:textSize="29dp"
         android:id="@+id/textView"
         android:layout_below="@id/txtTage"/>
