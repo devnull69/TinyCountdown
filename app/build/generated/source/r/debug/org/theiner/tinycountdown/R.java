@@ -2333,7 +2333,6 @@ containing a value of this type.
         public static final int text=0x7f0d008a;
         public static final int text2=0x7f0d0088;
         public static final int textSpacerNoButtons=0x7f0d004d;
-        public static final int textView=0x7f0d0078;
         public static final int time=0x7f0d0086;
         public static final int title=0x7f0d0043;
         public static final int title_template=0x7f0d0048;
@@ -2341,6 +2340,7 @@ containing a value of this type.
         public static final int top=0x7f0d0025;
         public static final int topPanel=0x7f0d0047;
         public static final int txtTage=0x7f0d0077;
+        public static final int txtTagenLiteral=0x7f0d0078;
         public static final int txtTerminName=0x7f0d0075;
         public static final int up=0x7f0d0009;
         public static final int useLogo=0x7f0d0014;

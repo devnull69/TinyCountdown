@@ -103,7 +103,7 @@ public class TinyWidgetProvider extends AppWidgetProvider {
         paint.setColor(Color.argb(255, 222, 40, 61));
         paint.setTextSize(60);
         paint.setTextAlign(Paint.Align.CENTER);
-        myCanvas.drawText(tage, 100, 75, paint);
+        myCanvas.drawText(tage + (tage.startsWith("1")?"  ":""), 100, 75, paint);
         return myBitmap;
     }
 }

@@ -45,6 +45,7 @@ public class OverviewActivity extends AppCompatActivity {
 
         TextView txtTerminName = (TextView) findViewById(R.id.txtTerminName);
         ivBackgroundImage = (ImageView) findViewById(R.id.ivBackgroundImage);
+        TextView txtTagenLiteral = (TextView) findViewById(R.id.txtTagenLiteral);
 
         Calendar heute = Calendar.getInstance();
 
@@ -62,8 +63,16 @@ public class OverviewActivity extends AppCompatActivity {
         LocalDate terminDate = LocalDate.fromCalendarFields(terminDatum);
         long days = Days.daysBetween(heuteDate, terminDate).getDays();
 
+        String strDays = String.valueOf(days);
+
         txtTerminName.setText(terminName);
-        txtTage.setText(String.valueOf(days));
+        txtTage.setText(strDays + (strDays.startsWith("1")?"  ":""));
+
+        // 1 Tag
+        if(days == 1)
+            txtTagenLiteral.setText("Tag");
+        else
+            txtTagenLiteral.setText("Tagen");
 
         // Gibt es schon ein gecachetes Hintergrundbild?
         File sdDir = Environment
