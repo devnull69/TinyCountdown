@@ -54,6 +54,7 @@ public class OverviewActivity extends AppCompatActivity {
         // hole Werte aus den Settings
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         String strStartDatum = settings.getString("terminDatum", "01.08.2017");
+        firstStart = settings.getBoolean("firstStart", true);
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         terminDatum.setTime(sdf.parse(strStartDatum));
 
@@ -92,7 +93,6 @@ public class OverviewActivity extends AppCompatActivity {
                         .setMessage("Du hast noch kein Hintergrundbild festgelegt. Möchtest Du das jetzt tun?")
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                firstStart = false;
                                 zeigeOptionen();
                                 dialog.cancel();
                             }
@@ -107,6 +107,11 @@ public class OverviewActivity extends AppCompatActivity {
             }
         }
         firstStart = false;
+
+        // Setting speichern
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("firstStart", false);
+        editor.commit();
     }
 
     private void zeigeOptionen() {

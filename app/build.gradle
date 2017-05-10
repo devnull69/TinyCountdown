@@ -26,8 +26,8 @@ android {
         applicationId "org.theiner.tinycountdown"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 16
-        versionName "1.1.1"
+        versionCode 17
+        versionName "1.2.0"
     }
     buildTypes {
         release {
